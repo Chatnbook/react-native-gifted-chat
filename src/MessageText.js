@@ -19,7 +19,7 @@ export default class MessageText extends React.Component {
         <Text
           style={[styles[this.props.position].text, this.props.textStyle[this.props.position]]}>
           {this.props.currentMessage.text}
-        <Text>
+        </Text>
       </View>
     );
   }
