@@ -6,13 +6,6 @@ import {
 } from 'react-native';
 
 export default class MessageText extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onUrlPress = this.onUrlPress.bind(this);
-    this.onPhonePress = this.onPhonePress.bind(this);
-    this.onEmailPress = this.onEmailPress.bind(this);
-  }
-
   render() {
     return (
       <View style={[styles[this.props.position].container, this.props.containerStyle[this.props.position]]}>
