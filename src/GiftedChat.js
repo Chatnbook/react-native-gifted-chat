@@ -56,6 +56,10 @@ class GiftedChat extends React.Component {
     this.onInputTextChanged = this.onInputTextChanged.bind(this);
     this.onMainViewLayout = this.onMainViewLayout.bind(this);
     this.onInitialLayoutViewLayout = this.onInitialLayoutViewLayout.bind(this);
+
+    this.invertibleScrollViewProps = {
+      inverted: true,
+    };
   }
 
   static append(currentMessages = [], messages) {
@@ -193,6 +197,8 @@ class GiftedChat extends React.Component {
       }}>
         <MessageContainer
           {...this.props}
+
+          invertibleScrollViewProps={this.invertibleScrollViewProps}
 
           messages={this.getMessages()}
 
