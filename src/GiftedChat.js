@@ -436,10 +436,7 @@ GiftedChat.defaultProps = {
   },
   locale: null,
   isAnimated: false, // TODO: test
-  keyboardShouldPersistTaps: Platform.select({
-    ios: 'never',
-    android: 'always',
-  }),
+  keyboardShouldPersistTaps: 'always', // TODO: test
   renderAccessory: null,
   renderActions: null,
   renderAvatar: null,
