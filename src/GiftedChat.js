@@ -1,13 +1,10 @@
 import React from 'react';
 import {
   Animated,
-  InteractionManager,
-  Platform,
   StyleSheet,
   View,
 } from 'react-native';
 
-import ActionSheet from '@exponent/react-native-action-sheet';
 import moment from 'moment/min/moment-with-locales.min';
 import uuid from 'uuid';
 
@@ -30,10 +27,7 @@ import GiftedAvatar from './GiftedAvatar';
 // Min and max heights of ToolbarInput and Composer
 // Needed for Composer auto grow and ScrollView animation
 // TODO move these values to Constants.js (also with used colors #b2b2b2)
-const MIN_COMPOSER_HEIGHT = Platform.select({
-  ios: 33,
-  android: 41,
-});
+const MIN_COMPOSER_HEIGHT = 33; // TODO: test
 const MAX_COMPOSER_HEIGHT = 100;
 const MIN_INPUT_TOOLBAR_HEIGHT = 44;
 
@@ -95,7 +89,6 @@ class GiftedChat extends React.Component {
 
   getChildContext() {
     return {
-      actionSheet: () => this._actionSheetRef,
       getLocale: this.getLocale,
     };
   }
@@ -243,16 +236,10 @@ class GiftedChat extends React.Component {
   }
 
   onKeyboardDidShow(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillShow(e);
-    }
     this.setIsTypingDisabled(false);
   }
 
   onKeyboardDidHide(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillHide(e);
-    }
     this.setIsTypingDisabled(false);
   }
 
@@ -354,27 +341,16 @@ class GiftedChat extends React.Component {
       return;
     }
     this.setMaxHeight(layout.height);
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({
-        isInitialized: true,
-        text: '',
-        composerHeight: MIN_COMPOSER_HEIGHT,
-        messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
-      });
+
+    this.setState({
+      isInitialized: true,
+      text: '',
+      composerHeight: MIN_COMPOSER_HEIGHT,
+      messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
     });
   }
 
   onMainViewLayout(e) {
-    if (Platform.OS === 'android') {
-      // fix an issue when keyboard is dismissing during the initialization
-      const layout = e.nativeEvent.layout;
-      if (this.getMaxHeight() !== layout.height && this.getIsFirstLayout() === true) {
-        this.setMaxHeight(layout.height);
-        this.setState({
-          messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
-        });
-      }
-    }
     if (this.getIsFirstLayout() === true) {
       this.setIsFirstLayout(false);
     }
@@ -427,12 +403,10 @@ class GiftedChat extends React.Component {
   render() {
     if (this.state.isInitialized === true) {
       return (
-        <ActionSheet ref={component => this._actionSheetRef = component}>
-          <View style={styles.container} onLayout={this.onMainViewLayout}>
-            {this.renderMessages()}
-            {this.renderInputToolbar()}
-          </View>
-        </ActionSheet>
+        <View style={styles.container} onLayout={this.onMainViewLayout}>
+          {this.renderMessages()}
+          {this.renderInputToolbar()}
+        </View>
       );
     }
     return (
@@ -450,7 +424,6 @@ const styles = StyleSheet.create({
 });
 
 GiftedChat.childContextTypes = {
-  actionSheet: React.PropTypes.func,
   getLocale: React.PropTypes.func,
 };
 
@@ -462,10 +435,7 @@ GiftedChat.defaultProps = {
   onLoadEarlier: () => {
   },
   locale: null,
-  isAnimated: Platform.select({
-    ios: true,
-    android: false,
-  }),
+  isAnimated: false, // TODO: test
   keyboardShouldPersistTaps: Platform.select({
     ios: 'never',
     android: 'always',

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -73,10 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   activityIndicator: {
-    marginTop: Platform.select({
-      ios: -14,
-      android: -16,
-    }),
+    marginTop: -15, // TODO: test
   }
 });
 

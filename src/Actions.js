@@ -13,25 +13,7 @@ export default class Actions extends React.Component {
   }
 
   onActionsPress() {
-    const options = Object.keys(this.props.options);
-    const cancelButtonIndex = Object.keys(this.props.options).length - 1;
-    this.context.actionSheet().showActionSheetWithOptions({
-      options,
-      cancelButtonIndex,
-      tintColor: this.props.optionTintColor
-    },
-    (buttonIndex) => {
-      let i = 0;
-      for (let key in this.props.options) {
-        if (this.props.options.hasOwnProperty(key)) {
-          if (buttonIndex === i) {
-            this.props.options[key](this.props);
-            return;
-          }
-          i++;
-        }
-      }
-    });
+    //
   }
 
   renderIcon() {
@@ -86,7 +68,7 @@ const styles = StyleSheet.create({
 });
 
 Actions.contextTypes = {
-  actionSheet: React.PropTypes.func,
+  //
 };
 
 Actions.defaultProps = {
