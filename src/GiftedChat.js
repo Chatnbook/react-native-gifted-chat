@@ -37,7 +37,6 @@ class GiftedChat extends React.Component {
 
     // default values
     this._isMounted = false;
-    this._keyboardHeight = 0;
     this._bottomOffset = 0;
     this._maxHeight = null;
     this._isFirstLayout = true;
@@ -127,14 +126,6 @@ class GiftedChat extends React.Component {
 
   getMaxHeight() {
     return this._maxHeight;
-  }
-
-  setKeyboardHeight(height) {
-    this._keyboardHeight = height;
-  }
-
-  getKeyboardHeight() {
-    return this._keyboardHeight;
   }
 
   setBottomOffset(value) {
@@ -227,20 +218,11 @@ class GiftedChat extends React.Component {
     });
 
     if (shouldResetInputToolbar === true) {
-      this.setIsTypingDisabled(true);
       this.resetInputToolbar();
     }
 
     this.props.onSend(messages);
     this.scrollToBottom();
-
-    if (shouldResetInputToolbar === true) {
-      setTimeout(() => {
-        if (this.getIsMounted() === true) {
-          this.setIsTypingDisabled(false);
-        }
-      }, 100);
-    }
   }
 
   resetInputToolbar() {
@@ -250,7 +232,7 @@ class GiftedChat extends React.Component {
     this.setState({
       text: '',
       composerHeight: MIN_COMPOSER_HEIGHT,
-      messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight() - this.getKeyboardHeight() + this.props.bottomOffset),
+      messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight() + this.props.bottomOffset),
     });
   }
 
@@ -259,12 +241,12 @@ class GiftedChat extends React.Component {
   }
 
   onInputSizeChanged(size) {
-    const newComposerHeight = Math.max(MIN_COMPOSER_HEIGHT, Math.min(MAX_COMPOSER_HEIGHT, size.height));
-    const newMessagesContainerHeight = this.getMaxHeight() - this.calculateInputToolbarHeight(newComposerHeight) - this.getKeyboardHeight() + this.getBottomOffset();
+    /*const newComposerHeight = Math.max(MIN_COMPOSER_HEIGHT, Math.min(MAX_COMPOSER_HEIGHT, size.height));
+    const newMessagesContainerHeight = this.getMaxHeight() - this.calculateInputToolbarHeight(newComposerHeight) + this.getBottomOffset();
     this.setState({
       composerHeight: newComposerHeight,
       messagesContainerHeight: this.prepareMessagesContainerHeight(newMessagesContainerHeight),
-    });
+    });*/
   }
 
   onInputTextChanged(text) {
