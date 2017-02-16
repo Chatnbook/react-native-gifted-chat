@@ -35,7 +35,6 @@ export default class Composer extends React.Component {
         value={this.props.text}
         accessibilityLabel={this.props.text || this.props.placeholder}
         enablesReturnKeyAutomatically={true}
-        underlineColorAndroid="transparent"
         {...this.props.textInputProps}
       />
     );
