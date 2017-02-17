@@ -133,6 +133,7 @@ const defaultStyles = {
     fontSize: 16,
     backgroundColor: 'transparent',
     fontWeight: '100',
+    textAligh: 'center' // userful for Firefox
   },
 };
 
