@@ -350,6 +350,9 @@ class GiftedChat extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    paddingTop: 3, // to escape bar shadow (4px)
+    height: 'calc(100vh - 65px)' // fix for Safari (- navigation bar height)
   },
 });
 
