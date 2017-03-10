@@ -32,7 +32,7 @@ import GiftedAvatar from './GiftedAvatar';
 // TODO move these values to Constants.js (also with used colors #b2b2b2)
 const MIN_COMPOSER_HEIGHT = Platform.select({
   ios: 33,
-  android: 41,
+  android: 33,
 });
 const MAX_COMPOSER_HEIGHT = 100;
 const MIN_INPUT_TOOLBAR_HEIGHT = 44;
