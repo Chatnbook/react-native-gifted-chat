@@ -201,21 +201,21 @@ Bubble.propTypes = {
   nextMessage: React.PropTypes.object,
   previousMessage: React.PropTypes.object,
   containerStyle: React.PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: {},//View.propTypes.style,
+    right: {},//View.propTypes.style,
   }),
   wrapperStyle: React.PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: {},//View.propTypes.style,
+    right: {},//View.propTypes.style,
   }),
-  tickStyle: Text.propTypes.style,
+  tickStyle: {},//Text.propTypes.style,
   containerToNextStyle: React.PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: {},//View.propTypes.style,
+    right: {},//View.propTypes.style,
   }),
   containerToPreviousStyle: React.PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: {},//View.propTypes.style,
+    right: {},//View.propTypes.style,
   }),
   //TODO: remove in next major release
   isSameDay: React.PropTypes.func,

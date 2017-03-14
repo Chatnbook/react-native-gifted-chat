@@ -86,6 +86,6 @@ Actions.propTypes = {
   optionTintColor: React.PropTypes.string,
   icon: React.PropTypes.func,
   onPressActionButton: React.PropTypes.func,
-  containerStyle: View.propTypes.style,
-  iconTextStyle: Text.propTypes.style,
+  containerStyle: {},//View.propTypes.style,
+  iconTextStyle: {},//Text.propTypes.style,
 };

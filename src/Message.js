@@ -107,7 +107,7 @@ Message.propTypes = {
   previousMessage: React.PropTypes.object,
   user: React.PropTypes.object,
   containerStyle: React.PropTypes.shape({
-    left: View.propTypes.style,
-    right: View.propTypes.style,
+    left: {},//View.propTypes.style,
+    right: {},//View.propTypes.style,
   }),
 };

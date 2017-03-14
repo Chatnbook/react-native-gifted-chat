@@ -93,7 +93,7 @@ InputToolbar.propTypes = {
   renderSend: React.PropTypes.func,
   renderComposer: React.PropTypes.func,
   onPressActionButton: React.PropTypes.func,
-  containerStyle: View.propTypes.style,
-  primaryStyle: View.propTypes.style,
-  accessoryStyle: View.propTypes.style,
+  containerStyle: {},//View.propTypes.style,
+  primaryStyle: {},//View.propTypes.style,
+  accessoryStyle: {},//View.propTypes.style,
 };

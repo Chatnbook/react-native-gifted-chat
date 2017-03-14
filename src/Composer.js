@@ -78,5 +78,5 @@ Composer.propTypes = {
   onTextChanged: React.PropTypes.func,
   onInputSizeChanged: React.PropTypes.func,
   multiline: React.PropTypes.bool,
-  textInputStyle: TextInput.propTypes.style,
+  textInputStyle: {},//TextInput.propTypes.style,
 };

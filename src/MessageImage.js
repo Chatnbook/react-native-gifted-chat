@@ -48,7 +48,7 @@ MessageImage.defaultProps = {
 
 MessageImage.propTypes = {
   currentMessage: React.PropTypes.object,
-  containerStyle: View.propTypes.style,
-  imageStyle: Image.propTypes.style,
+  containerStyle: {},//View.propTypes.style,
+  imageStyle: {},//Image.propTypes.style,
   imageProps: React.PropTypes.object,
 };

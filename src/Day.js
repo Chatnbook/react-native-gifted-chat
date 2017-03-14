@@ -70,9 +70,9 @@ Day.defaultProps = {
 Day.propTypes = {
   currentMessage: React.PropTypes.object,
   previousMessage: React.PropTypes.object,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
-  textStyle: Text.propTypes.style,
+  containerStyle: {},//View.propTypes.style,
+  wrapperStyle: {},//View.propTypes.style,
+  textStyle: {},//Text.propTypes.style,
   //TODO: remove in next major release
   isSameDay: React.PropTypes.func,
   isSameUser: React.PropTypes.func,

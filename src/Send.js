@@ -59,6 +59,6 @@ Send.propTypes = {
   text: React.PropTypes.string,
   onSend: React.PropTypes.func,
   label: React.PropTypes.string,
-  containerStyle: View.propTypes.style,
-  textStyle: Text.propTypes.style,
+  containerStyle: {},//View.propTypes.style,
+  textStyle: {},//Text.propTypes.style,
 };
