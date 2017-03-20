@@ -16,7 +16,7 @@ import Message from './Message';
 const webstyles = Platform.OS === 'web' ?
 {
   backgroundColor: 'transparent',
-  width: '35%',
+  width: 430,
   alignSelf: 'flex-end',
 } :
 {};
