@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 export default class MessageImage extends React.Component {
   render() {
@@ -48,7 +49,7 @@ MessageImage.defaultProps = {
 
 MessageImage.propTypes = {
   currentMessage: React.PropTypes.object,
-  containerStyle: {},//View.propTypes.style,
-  imageStyle: {},//Image.propTypes.style,
+  containerStyle: StylePropType,//View.propTypes.style,
+  imageStyle: StylePropType,//Image.propTypes.style,
   imageProps: React.PropTypes.object,
 };

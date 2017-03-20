@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 import MessageText from './MessageText';
 import MessageImage from './MessageImage';
@@ -201,21 +202,21 @@ Bubble.propTypes = {
   nextMessage: React.PropTypes.object,
   previousMessage: React.PropTypes.object,
   containerStyle: React.PropTypes.shape({
-    left: {},//View.propTypes.style,
-    right: {},//View.propTypes.style,
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
   }),
   wrapperStyle: React.PropTypes.shape({
-    left: {},//View.propTypes.style,
-    right: {},//View.propTypes.style,
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
   }),
-  tickStyle: {},//Text.propTypes.style,
+  tickStyle: StylePropType,//Text.propTypes.style,
   containerToNextStyle: React.PropTypes.shape({
-    left: {},//View.propTypes.style,
-    right: {},//View.propTypes.style,
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
   }),
   containerToPreviousStyle: React.PropTypes.shape({
-    left: {},//View.propTypes.style,
-    right: {},//View.propTypes.style,
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
   }),
   //TODO: remove in next major release
   isSameDay: React.PropTypes.func,

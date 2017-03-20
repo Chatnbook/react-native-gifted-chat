@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+import StylePropType from 'react-style-proptype';
+
 export default class Actions extends React.Component {
   constructor(props) {
     super(props);
@@ -86,6 +88,6 @@ Actions.propTypes = {
   optionTintColor: React.PropTypes.string,
   icon: React.PropTypes.func,
   onPressActionButton: React.PropTypes.func,
-  containerStyle: {},//View.propTypes.style,
-  iconTextStyle: {},//Text.propTypes.style,
+  containerStyle: StylePropType,//View.propTypes.style,
+  iconTextStyle: StylePropType,//Text.propTypes.style,
 };

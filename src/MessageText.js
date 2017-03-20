@@ -4,6 +4,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 export default class MessageText extends React.Component {
   render() {
@@ -72,15 +73,15 @@ MessageText.propTypes = {
   position: React.PropTypes.oneOf(['left', 'right']),
   currentMessage: React.PropTypes.object,
   containerStyle: React.PropTypes.shape({
-    left: {},//View.propTypes.style,
-    right: {},//View.propTypes.style,
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
   }),
   textStyle: React.PropTypes.shape({
-    left: {},//Text.propTypes.style,
-    right: {},//Text.propTypes.style,
+    left: StylePropType,//Text.propTypes.style,
+    right: StylePropType,//Text.propTypes.style,
   }),
   linkStyle: React.PropTypes.shape({
-    left: {},//Text.propTypes.style,
-    right: {},//Text.propTypes.style,
+    left: StylePropType,//Text.propTypes.style,
+    right: StylePropType,//Text.propTypes.style,
   }),
 };

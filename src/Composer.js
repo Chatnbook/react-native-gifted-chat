@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 export default class Composer extends React.Component {
   onChange(e) {
@@ -78,5 +79,5 @@ Composer.propTypes = {
   onTextChanged: React.PropTypes.func,
   onInputSizeChanged: React.PropTypes.func,
   multiline: React.PropTypes.bool,
-  textInputStyle: {},//TextInput.propTypes.style,
+  textInputStyle: StylePropType,//TextInput.propTypes.style,
 };
