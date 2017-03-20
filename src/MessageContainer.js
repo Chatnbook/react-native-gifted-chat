@@ -3,6 +3,8 @@ import React from 'react';
 import {
   ListView,
   View,
+  Platform,
+  StyleSheet,
 } from 'react-native';
 
 import shallowequal from 'shallowequal';
@@ -10,6 +12,20 @@ import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import md5 from 'md5';
 import LoadEarlier from './LoadEarlier';
 import Message from './Message';
+
+const webstyles = Platform.OS === 'web' ?
+{
+  backgroundColor: 'transparent',
+  width: '35%',
+  alignSelf: 'flex-end',
+} :
+{};
+const styles = StyleSheet.create({
+  containerView: {
+    flex: 1,
+    ...webstyles,
+  }
+});
 
 export default class MessageContainer extends React.Component {
   constructor(props) {
@@ -137,7 +153,7 @@ export default class MessageContainer extends React.Component {
 
   render() {
     return (
-      <View ref='container' style={{flex:1}}>
+      <View ref='container' style={styles.containerView}>
         <ListView
           enableEmptySections={true}
           initialListSize={20}
