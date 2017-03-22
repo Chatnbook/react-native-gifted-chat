@@ -3,6 +3,8 @@ import {
   Animated,
   StyleSheet,
   View,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 
 import moment from 'moment/min/moment-with-locales.min';
@@ -93,7 +95,9 @@ class GiftedChat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps = {}) {
+    console.log('nextProps', nextProps);
     this.initMessages(nextProps.messages);
+    this.setState({chatVisible: nextProps.chatVisible});
   }
 
   initLocale() {
@@ -189,10 +193,16 @@ class GiftedChat extends React.Component {
     });
   }
 
+  renderCloseButton() {
+    return (
+      <TouchableOpacity onPress={() => this.setState({ chatVisible: false })}><Text style={styles.closeButton}>hide chat</Text></TouchableOpacity>
+    );
+  }
+
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
-      <AnimatedView  style={styles.animated}>
+      <AnimatedView style={styles.animated}>
         <MessageContainer
           {...this.props}
 
@@ -330,12 +340,21 @@ class GiftedChat extends React.Component {
 
   render() {
     if (this.state.isInitialized === true) {
-      return (
-        <View style={styles.container} onLayout={this.onMainViewLayout}>
-          {this.renderMessages()}
-          {this.renderInputToolbar()}
-        </View>
-      );
+      if (this.state.chatVisible) {
+        return (
+          <View style={styles.container} onLayout={this.onMainViewLayout}>
+            {this.renderCloseButton()}
+            {this.renderMessages()}
+            {this.renderInputToolbar()}
+          </View>
+        );
+      } else {
+        return (
+          <View style={styles.container} onLayout={this.onMainViewLayout}>
+            {this.renderInputToolbar()}
+          </View>
+        );
+      }
     }
     return (
       <View style={styles.container} onLayout={this.onInitialLayoutViewLayout}>
@@ -344,7 +363,6 @@ class GiftedChat extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -356,13 +374,23 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   animated: {
+    // marginBottom: '70px',
     flex:3,
     overflow: 'hidden',
     flexDirection: 'column',
     justifyContent: 'flex-end',
     minHeight: '330px',
     height: 'calc(80vh - 70px)',
-  }
+  },
+  closeButton: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignSelf: 'flex-end',
+    width: 'auto',
+    marginBottom: '10px',
+    borderRadius: '20px',
+    padding: '10px',
+    color: '#fff',
+  },
 });
 
 GiftedChat.childContextTypes = {
@@ -398,7 +426,8 @@ GiftedChat.defaultProps = {
   user: {},
   bottomOffset: 0,
   isLoadingEarlier: false,
-  messageIdGenerator: () => uuid.v4()
+  messageIdGenerator: () => uuid.v4(),
+  chatVisible: false,
 };
 
 GiftedChat.propTypes = {
@@ -430,6 +459,7 @@ GiftedChat.propTypes = {
   bottomOffset: React.PropTypes.number,
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
+  chatVisible: React.PropTypes.bool,
 };
 
 export {
