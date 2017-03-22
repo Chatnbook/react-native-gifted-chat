@@ -3,7 +3,6 @@ import React from 'react';
 import {
   ListView,
   View,
-  Platform,
   StyleSheet,
 } from 'react-native';
 
@@ -13,17 +12,16 @@ import md5 from 'md5';
 import LoadEarlier from './LoadEarlier';
 import Message from './Message';
 
-const webstyles = Platform.OS === 'web' ?
-{
-  backgroundColor: 'transparent',
-  width: 430,
-  alignSelf: 'flex-end',
-} :
-{};
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    ...webstyles,
+    backgroundColor: 'transparent',
+    alignSelf: 'flex-end',
+    width: 430,
+    marginBottom: '10px',
+    borderRadius: '20px',
+    padding: '10px',
+    paddingRight: '0',
   }
 });
 

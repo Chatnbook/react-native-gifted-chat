@@ -192,9 +192,7 @@ class GiftedChat extends React.Component {
   renderMessages() {
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
-      <AnimatedView style={{
-        height: this.state.messagesContainerHeight,
-      }}>
+      <AnimatedView  style={styles.animated}>
         <MessageContainer
           {...this.props}
 
@@ -351,9 +349,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 3, // to escape bar shadow (4px)
-    height: 'calc(100vh - 65px)' // fix for Safari (- navigation bar height)
+    justifyContent: 'flex-end',
+    minHeight: '400px',
+    height: '80vh',
+    overflow: 'hidden',
+    paddingTop: 20,
   },
+  animated: {
+    flex:3,
+    overflow: 'hidden',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    minHeight: '330px',
+    height: 'calc(80vh - 70px)',
+  }
 });
 
 GiftedChat.childContextTypes = {
