@@ -194,12 +194,18 @@ class GiftedChat extends React.Component {
   }
 
   renderCloseButton() {
+    if (!this.state.chatVisible) {
+      return null;
+    }
     return (
-      <TouchableOpacity onPress={() => this.setState({ chatVisible: false })}><Text style={styles.closeButton}>hide chat</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => this.setState({ chatVisible: false })}><Text style={styles.closeButton}>{this.props.hideButtonTitle}</Text></TouchableOpacity>
     );
   }
 
   renderMessages() {
+    if (!this.state.chatVisible) {
+      return null;
+    }
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
       <AnimatedView style={styles.animated}>
@@ -340,21 +346,13 @@ class GiftedChat extends React.Component {
 
   render() {
     if (this.state.isInitialized === true) {
-      if (this.state.chatVisible) {
-        return (
-          <View style={styles.container} onLayout={this.onMainViewLayout}>
-            {this.renderCloseButton()}
-            {this.renderMessages()}
-            {this.renderInputToolbar()}
-          </View>
-        );
-      } else {
-        return (
-          <View style={styles.container} onLayout={this.onMainViewLayout}>
-            {this.renderInputToolbar()}
-          </View>
-        );
-      }
+      return (
+        <View style={styles.container} onLayout={this.onMainViewLayout}>
+          {this.renderCloseButton()}
+          {this.renderMessages()}
+          {this.renderInputToolbar()}
+        </View>
+      );
     }
     return (
       <View style={styles.container} onLayout={this.onInitialLayoutViewLayout}>
@@ -428,6 +426,7 @@ GiftedChat.defaultProps = {
   isLoadingEarlier: false,
   messageIdGenerator: () => uuid.v4(),
   chatVisible: false,
+  hideButtonTitle: 'Hide chat',
 };
 
 GiftedChat.propTypes = {
@@ -460,6 +459,7 @@ GiftedChat.propTypes = {
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
+  hideButtonTitle: React.PropTypes.string,
 };
 
 export {
