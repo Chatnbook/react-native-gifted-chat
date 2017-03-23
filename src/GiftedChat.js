@@ -49,7 +49,7 @@ class GiftedChat extends React.Component {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: null,
-      typingDisabled: false
+      typingDisabled: false,
     };
 
     this.onSend = this.onSend.bind(this);
@@ -95,7 +95,7 @@ class GiftedChat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps = {}) {
-    console.log('nextProps', nextProps);
+    //console.log('nextProps', nextProps);
     this.initMessages(nextProps.messages);
     this.setState({chatVisible: nextProps.chatVisible});
   }
@@ -193,12 +193,16 @@ class GiftedChat extends React.Component {
     });
   }
 
-  renderCloseButton() {
+  renderHideButton() {
     if (!this.state.chatVisible) {
       return null;
     }
     return (
-      <TouchableOpacity onPress={() => this.setState({ chatVisible: false })}><Text style={styles.closeButton}>{this.props.hideButtonTitle}</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => this.props.onHideButtonPress()}>
+        <Text style={styles.hideButton}>
+          {this.props.hideButtonTitle}
+        </Text>
+      </TouchableOpacity>
     );
   }
 
@@ -348,7 +352,7 @@ class GiftedChat extends React.Component {
     if (this.state.isInitialized === true) {
       return (
         <View style={styles.container} onLayout={this.onMainViewLayout}>
-          {this.renderCloseButton()}
+          {this.renderHideButton()}
           {this.renderMessages()}
           {this.renderInputToolbar()}
         </View>
@@ -380,7 +384,7 @@ const styles = StyleSheet.create({
     minHeight: '330px',
     height: 'calc(80vh - 70px)',
   },
-  closeButton: {
+  hideButton: {
     backgroundColor: 'rgba(0,0,0,0.3)',
     alignSelf: 'flex-end',
     width: 'auto',
@@ -427,6 +431,7 @@ GiftedChat.defaultProps = {
   messageIdGenerator: () => uuid.v4(),
   chatVisible: false,
   hideButtonTitle: 'Hide chat',
+  onHideButtonPress: () => {},
 };
 
 GiftedChat.propTypes = {
@@ -460,6 +465,7 @@ GiftedChat.propTypes = {
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
   hideButtonTitle: React.PropTypes.string,
+  onHideButtonPress: React.PropTypes.func,
 };
 
 export {
