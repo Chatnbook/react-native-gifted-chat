@@ -481,7 +481,7 @@ GiftedChat.propTypes = {
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
   hideButtonTitle: React.PropTypes.string,
-  hideButtonImage: React.PropType.any,
+  hideButtonImage: React.PropTypes.any,
   onHideButtonPress: React.PropTypes.func,
 };
 
