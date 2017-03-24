@@ -198,10 +198,14 @@ class GiftedChat extends React.Component {
       return null;
     }
     return (
-      <TouchableOpacity onPress={() => this.props.onHideButtonPress()}>
-        <Text style={styles.hideButton}>
+      <TouchableOpacity
+        style={styles.hideButton}
+        onPress={() => this.props.onHideButtonPress()}
+      >
+        <Text style={styles.hideText}>
           {this.props.hideButtonTitle}
         </Text>
+        <Image style={styles.hideImage} source={require({ uri: './assets/i_arrow_d/i_arrow_d' })} />
       </TouchableOpacity>
     );
   }
@@ -387,11 +391,22 @@ const styles = StyleSheet.create({
   hideButton: {
     backgroundColor: 'rgba(0,0,0,0.3)',
     alignSelf: 'flex-end',
-    width: 'auto',
-    marginBottom: '10px',
-    borderRadius: '20px',
-    padding: '10px',
+    height: 30,
+    marginBottom: 5,
+    borderRadius: 16,
     color: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  hideText: {
+    fontSize: 13,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  hideImage: {
+    margin: 10,
+    width: 15,
+    height: 9,
   },
 });
 
