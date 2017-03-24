@@ -205,7 +205,7 @@ class GiftedChat extends React.Component {
         <Text style={styles.hideText}>
           {this.props.hideButtonTitle}
         </Text>
-        <Image style={styles.hideImage} source={require({ uri: './assets/i_arrow_d/i_arrow_d' })} />
+        <Image style={styles.hideImage} source={require('./assets/i_arrow_down/i_arrow_down.png')} />
       </TouchableOpacity>
     );
   }
