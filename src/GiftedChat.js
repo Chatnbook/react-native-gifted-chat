@@ -205,7 +205,7 @@ class GiftedChat extends React.Component {
         <Text style={styles.hideText}>
           {this.props.hideButtonTitle}
         </Text>
-        <Image style={styles.hideImage} source={require('./assets/i_arrow_down/i_arrow_down.png')} />
+        <Image style={styles.hideImage} source={this.props.hideButtonImage} />
       </TouchableOpacity>
     );
   }
@@ -446,6 +446,7 @@ GiftedChat.defaultProps = {
   messageIdGenerator: () => uuid.v4(),
   chatVisible: false,
   hideButtonTitle: 'Hide chat',
+  hideButtonImage: null,
   onHideButtonPress: () => {},
 };
 
@@ -480,6 +481,7 @@ GiftedChat.propTypes = {
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
   hideButtonTitle: React.PropTypes.string,
+  hideButtonImage: React.PropType.any,
   onHideButtonPress: React.PropTypes.func,
 };
 
