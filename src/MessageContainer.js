@@ -15,13 +15,12 @@ import Message from './Message';
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0))',
     alignSelf: 'flex-end',
     width: 430,
-    marginBottom: '10px',
-    borderRadius: '20px',
-    padding: '10px',
-    paddingRight: '5px',
+    marginBottom: 5,
+    borderRadius: 20,
+    padding: 5,
   }
 });
 
