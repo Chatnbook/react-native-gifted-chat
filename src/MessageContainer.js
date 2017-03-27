@@ -15,12 +15,11 @@ import Message from './Message';
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0))',
+    background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
     alignSelf: 'flex-end',
     width: 430,
     marginBottom: 5,
     borderRadius: 20,
-    padding: 5,
   }
 });
 
@@ -46,6 +45,8 @@ export default class MessageContainer extends React.Component {
   }
 
   prepareMessages(messages) {
+    this.messagesCount = messages.length;
+
     return {
       keys: messages.map(m => m._id),
       blob: messages.reduce((o, m, i) => {
@@ -72,6 +73,15 @@ export default class MessageContainer extends React.Component {
       return true;
     }
     return false;
+  }
+
+  componentDidMount() {
+    /*const scrollView = this.listView.getScrollResponder();
+    scrollView.addEventListener('mousewheel', (event) => {
+      scrollView.scrollLeft += event.deltaY;
+      scrollView.scrollTop += event.deltaX;
+      event.preventDefault();
+    });*/
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,7 +120,7 @@ export default class MessageContainer extends React.Component {
   }
 
   scrollTo(options) {
-    this._invertibleScrollViewRef.scrollTo(options);
+    this.listView.getScrollResponder().scrollTo(options);
   }
 
   renderRow(message, sectionId, rowId) {
@@ -143,14 +153,19 @@ export default class MessageContainer extends React.Component {
       <InvertibleScrollView
         {...props}
         {...invertibleScrollViewProps}
-        ref={component => this._invertibleScrollViewRef = component}
       />
     );
   }
 
   render() {
     return (
-      <View ref='container' style={styles.containerView}>
+      <View ref='container'
+        style={[styles.containerView,
+          {
+            padding: this.messagesCount > 0 ? 5 : 0,
+            paddingTop: this.messagesCount > 0 ? 10 : 0
+          }]}
+      >
         <ListView
           enableEmptySections={true}
           initialListSize={20}
@@ -164,6 +179,8 @@ export default class MessageContainer extends React.Component {
           renderHeader={this.renderFooter}
           renderFooter={this.renderLoadEarlier}
           renderScrollComponent={this.renderScrollComponent}
+
+          ref={component => this.listView = component}
         />
       </View>
     );
