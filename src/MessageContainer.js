@@ -31,6 +31,7 @@ export default class MessageContainer extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.renderLoadEarlier = this.renderLoadEarlier.bind(this);
     this.renderScrollComponent = this.renderScrollComponent.bind(this);
+    this.offset = {x: 0, y: 0};
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => {
@@ -73,15 +74,6 @@ export default class MessageContainer extends React.Component {
       return true;
     }
     return false;
-  }
-
-  componentDidMount() {
-    /*const scrollView = this.listView.getScrollResponder();
-    scrollView.addEventListener('mousewheel', (event) => {
-      scrollView.scrollLeft += event.deltaY;
-      scrollView.scrollTop += event.deltaX;
-      event.preventDefault();
-    });*/
   }
 
   componentWillReceiveProps(nextProps) {
@@ -147,6 +139,15 @@ export default class MessageContainer extends React.Component {
     return <Message {...messageProps}/>;
   }
 
+  onScroll(e) {
+    this.offset = e.nativeEvent.contentOffset;
+  }
+
+  onWheel(e) { // invert scroller
+    this.listView.getScrollResponder().scrollTo({ x: 0, y: this.offset.y - e.nativeEvent.deltaY });
+    e.preventDefault();
+  }
+
   renderScrollComponent(props) {
     const invertibleScrollViewProps = this.props.invertibleScrollViewProps;
     return (
@@ -167,7 +168,7 @@ export default class MessageContainer extends React.Component {
           }]}
       >
         <ListView
-          enableEmptySections={true}
+          enableEmptySections
           initialListSize={20}
           pageSize={20}
 
@@ -180,7 +181,9 @@ export default class MessageContainer extends React.Component {
           renderFooter={this.renderLoadEarlier}
           renderScrollComponent={this.renderScrollComponent}
 
-          ref={component => this.listView = component}
+          ref={(component) => this.listView = component}
+          onScroll={(e) => this.onScroll(e)}
+          onWheel={(e) => this.onWheel(e)}
         />
       </View>
     );
