@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
     background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
     alignSelf: 'flex-end',
-    width: 430,
+    width: '100%',
+    maxWidth: 440,
     marginBottom: 5,
     borderRadius: 20,
   }
