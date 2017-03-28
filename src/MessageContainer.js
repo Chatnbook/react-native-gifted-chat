@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
     alignSelf: 'flex-end',
     width: '100%',
-    maxWidth: 440,
     marginBottom: 5,
     borderRadius: 20,
   }
@@ -32,17 +31,17 @@ export default class MessageContainer extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.renderLoadEarlier = this.renderLoadEarlier.bind(this);
     this.renderScrollComponent = this.renderScrollComponent.bind(this);
-    this.offset = {x: 0, y: 0};
+    this.offset = { x: 0, y: 0 };
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => {
         return r1.hash !== r2.hash;
-      }
+      },
     });
 
     const messagesData = this.prepareMessages(props.messages);
     this.state = {
-      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys)
+      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys),
     };
   }
 
@@ -50,7 +49,7 @@ export default class MessageContainer extends React.Component {
     this.messagesCount = messages.length;
 
     return {
-      keys: messages.map(m => m._id),
+      keys: messages.map((m) => m._id),
       blob: messages.reduce((o, m, i) => {
         const previousMessage = messages[i + 1] || {};
         const nextMessage = messages[i - 1] || {};
@@ -60,7 +59,7 @@ export default class MessageContainer extends React.Component {
           ...m,
           previousMessage,
           nextMessage,
-          hash: md5(toHash)
+          hash: md5(toHash),
         };
         return o;
       }, {})
@@ -165,7 +164,8 @@ export default class MessageContainer extends React.Component {
         style={[styles.containerView,
           {
             padding: this.messagesCount > 0 ? 5 : 0,
-            paddingTop: this.messagesCount > 0 ? 10 : 0
+            paddingTop: this.messagesCount > 0 ? 10 : 0,
+            maxWidth: this.props.maxChatWidth,
           }]}
       >
         <ListView
@@ -197,8 +197,8 @@ MessageContainer.defaultProps = {
   renderFooter: null,
   renderMessage: null,
   listViewProps: {},
-  onLoadEarlier: () => {
-  },
+  onLoadEarlier: () => {},
+  maxChatWidth: 420,
 };
 
 MessageContainer.propTypes = {
@@ -208,4 +208,5 @@ MessageContainer.propTypes = {
   renderMessage: React.PropTypes.func,
   onLoadEarlier: React.PropTypes.func,
   listViewProps: React.PropTypes.object,
+  maxChatWidth: React.PropTypes.number,
 };

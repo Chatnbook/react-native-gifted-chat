@@ -454,6 +454,7 @@ GiftedChat.defaultProps = {
   hideButtonTitle: 'Hide chat',
   hideButtonImage: null,
   onHideButtonPress: () => {},
+  maxChatWidth: 420,
 };
 
 GiftedChat.propTypes = {
@@ -489,6 +490,7 @@ GiftedChat.propTypes = {
   hideButtonTitle: React.PropTypes.string,
   hideButtonImage: React.PropTypes.any,
   onHideButtonPress: React.PropTypes.func,
+  maxChatWidth: React.PropTypes.number,
 };
 
 export {
