@@ -212,12 +212,12 @@ class GiftedChat extends React.Component {
   }
 
   renderMessages() {
-    if (!this.state.chatVisible) {
-      return null;
-    }
+    //if (!this.state.chatVisible) {
+    //  return null;
+    //}
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
-      <AnimatedView style={styles.animated}>
+      <AnimatedView style={[styles.animated, { visibility: this.state.chatVisible ? 'visible' : 'hidden' }]}>
         <MessageContainer
           {...this.props}
 
