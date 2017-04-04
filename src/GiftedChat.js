@@ -7,6 +7,7 @@ import {
   Text,
   Image,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 import moment from 'moment/min/moment-with-locales.min';
 import uuid from 'uuid';
@@ -203,7 +204,7 @@ class GiftedChat extends React.Component {
         style={styles.hideButton}
         onPress={() => this.props.onHideButtonPress()}
       >
-        <Text style={styles.hideText}>
+        <Text style={[styles.hideText, this.props.hideButtonStyle]}>
           {this.props.hideButtonTitle}
         </Text>
         <Image style={styles.hideImage} source={this.props.hideButtonImage} />
@@ -489,6 +490,7 @@ GiftedChat.propTypes = {
   chatVisible: React.PropTypes.bool,
   hideButtonTitle: React.PropTypes.string,
   hideButtonImage: React.PropTypes.any,
+  hideButtonStyle: StylePropType,
   onHideButtonPress: React.PropTypes.func,
   maxChatWidth: React.PropTypes.number,
 };
