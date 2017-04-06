@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+import StylePropType from 'react-style-proptype';
+
 export default class Actions extends React.Component {
   constructor(props) {
     super(props);
@@ -13,25 +15,7 @@ export default class Actions extends React.Component {
   }
 
   onActionsPress() {
-    const options = Object.keys(this.props.options);
-    const cancelButtonIndex = Object.keys(this.props.options).length - 1;
-    this.context.actionSheet().showActionSheetWithOptions({
-      options,
-      cancelButtonIndex,
-      tintColor: this.props.optionTintColor
-    },
-    (buttonIndex) => {
-      let i = 0;
-      for (let key in this.props.options) {
-        if (this.props.options.hasOwnProperty(key)) {
-          if (buttonIndex === i) {
-            this.props.options[key](this.props);
-            return;
-          }
-          i++;
-        }
-      }
-    });
+    //
   }
 
   renderIcon() {
@@ -86,7 +70,7 @@ const styles = StyleSheet.create({
 });
 
 Actions.contextTypes = {
-  actionSheet: React.PropTypes.func,
+  //
 };
 
 Actions.defaultProps = {
@@ -104,6 +88,6 @@ Actions.propTypes = {
   optionTintColor: React.PropTypes.string,
   icon: React.PropTypes.func,
   onPressActionButton: React.PropTypes.func,
-  containerStyle: View.propTypes.style,
-  iconTextStyle: Text.propTypes.style,
+  containerStyle: StylePropType,//View.propTypes.style,
+  iconTextStyle: StylePropType,//Text.propTypes.style,
 };
