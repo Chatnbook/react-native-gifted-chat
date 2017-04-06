@@ -98,7 +98,7 @@ export default class Bubble extends React.Component {
             {this.renderCustomView()}
             {this.renderMessageImage()}
             {this.renderMessageText()}
-            <View style={styles.bottom}>
+            <View style={[styles.bottom, this.props.bottomContainerStyle[this.props.position]]}>
               {this.renderTime()}
               {this.renderTicks()}
             </View>
