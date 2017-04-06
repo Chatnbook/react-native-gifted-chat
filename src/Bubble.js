@@ -183,6 +183,7 @@ Bubble.defaultProps = {
   previousMessage: {},
   containerStyle: {},
   wrapperStyle: {},
+  bottomContainerStyle: {},
   tickStyle: {},
   containerToNextStyle: {},
   containerToPreviousStyle: {},
@@ -206,6 +207,10 @@ Bubble.propTypes = {
     right: StylePropType,//View.propTypes.style,
   }),
   wrapperStyle: React.PropTypes.shape({
+    left: StylePropType,//View.propTypes.style,
+    right: StylePropType,//View.propTypes.style,
+  }),
+  bottomContainerStyle: React.PropTypes.shape({
     left: StylePropType,//View.propTypes.style,
     right: StylePropType,//View.propTypes.style,
   }),
