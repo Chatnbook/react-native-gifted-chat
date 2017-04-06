@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 // TODO
 // 3 words name initials
@@ -140,6 +141,8 @@ const defaultStyles = {
     fontSize: 16,
     backgroundColor: 'transparent',
     fontWeight: '100',
+    textAlign: 'center', // useful for Firefox
+    margin: 'auto' // useful for Safari
   },
 };
 
@@ -156,6 +159,6 @@ GiftedAvatar.defaultProps = {
 GiftedAvatar.propTypes = {
   user: React.PropTypes.object,
   onPress: React.PropTypes.func,
-  avatarStyle: Image.propTypes.style,
-  textStyle: Text.propTypes.style,
+  avatarStyle: StylePropType,//Image.propTypes.style,
+  textStyle: StylePropType,//Text.propTypes.style,
 };

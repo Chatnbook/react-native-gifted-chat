@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import StylePropType from 'react-style-proptype';
 
 export default class LoadEarlier extends React.Component {
   renderLoading() {
@@ -73,10 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   activityIndicator: {
-    marginTop: Platform.select({
-      ios: -14,
-      android: -16,
-    }),
+    marginTop: -15, // TODO: test
   }
 });
 
@@ -94,8 +91,8 @@ LoadEarlier.propTypes = {
   onLoadEarlier: React.PropTypes.func,
   isLoadingEarlier: React.PropTypes.bool,
   label: React.PropTypes.string,
-  containerStyle: View.propTypes.style,
-  wrapperStyle: View.propTypes.style,
-  textStyle: Text.propTypes.style,
-  activityIndicatorStyle: View.propTypes.style,
+  containerStyle: StylePropType,//View.propTypes.style,
+  wrapperStyle: StylePropType,//View.propTypes.style,
+  textStyle: StylePropType,//Text.propTypes.style,
+  activityIndicatorStyle: StylePropType,//View.propTypes.style,
 };

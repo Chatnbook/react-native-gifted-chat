@@ -3,6 +3,7 @@ import React from 'react';
 import {
   ListView,
   View,
+  StyleSheet,
 } from 'react-native';
 
 import shallowequal from 'shallowequal';
@@ -10,6 +11,17 @@ import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import md5 from 'md5';
 import LoadEarlier from './LoadEarlier';
 import Message from './Message';
+
+const styles = StyleSheet.create({
+  containerView: {
+    flex: 1,
+    background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
+    alignSelf: 'flex-end',
+    width: '100%',
+    marginBottom: 5,
+    borderRadius: 20,
+  }
+});
 
 export default class MessageContainer extends React.Component {
   constructor(props) {
@@ -19,22 +31,25 @@ export default class MessageContainer extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.renderLoadEarlier = this.renderLoadEarlier.bind(this);
     this.renderScrollComponent = this.renderScrollComponent.bind(this);
+    this.offset = { x: 0, y: 0 };
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => {
         return r1.hash !== r2.hash;
-      }
+      },
     });
 
     const messagesData = this.prepareMessages(props.messages);
     this.state = {
-      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys)
+      dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys),
     };
   }
 
   prepareMessages(messages) {
+    this.messagesCount = messages.length;
+
     return {
-      keys: messages.map(m => m._id),
+      keys: messages.map((m) => m._id),
       blob: messages.reduce((o, m, i) => {
         const previousMessage = messages[i + 1] || {};
         const nextMessage = messages[i - 1] || {};
@@ -44,7 +59,7 @@ export default class MessageContainer extends React.Component {
           ...m,
           previousMessage,
           nextMessage,
-          hash: md5(toHash)
+          hash: md5(toHash),
         };
         return o;
       }, {})
@@ -97,7 +112,7 @@ export default class MessageContainer extends React.Component {
   }
 
   scrollTo(options) {
-    this._invertibleScrollViewRef.scrollTo(options);
+    this.listView.getScrollResponder().scrollTo(options);
   }
 
   renderRow(message, sectionId, rowId) {
@@ -124,23 +139,37 @@ export default class MessageContainer extends React.Component {
     return <Message {...messageProps}/>;
   }
 
+  onScroll(e) {
+    this.offset = e.nativeEvent.contentOffset;
+  }
+
+  onWheel(e) { // invert scroller
+    this.listView.getScrollResponder().scrollTo({ x: 0, y: this.offset.y - e.nativeEvent.deltaY });
+    e.preventDefault();
+  }
+
   renderScrollComponent(props) {
     const invertibleScrollViewProps = this.props.invertibleScrollViewProps;
     return (
       <InvertibleScrollView
         {...props}
         {...invertibleScrollViewProps}
-        ref={component => this._invertibleScrollViewRef = component}
       />
     );
   }
 
   render() {
     return (
-      <View ref='container' style={{flex:1}}>
+      <View ref='container'
+        style={[styles.containerView,
+          {
+            padding: this.messagesCount > 0 ? 5 : 0,
+            paddingTop: this.messagesCount > 0 ? 10 : 0,
+            maxWidth: this.props.maxChatWidth,
+          }]}
+      >
         <ListView
-          enableEmptySections={true}
-          automaticallyAdjustContentInsets={false}
+          enableEmptySections
           initialListSize={20}
           pageSize={20}
 
@@ -152,6 +181,10 @@ export default class MessageContainer extends React.Component {
           renderHeader={this.renderFooter}
           renderFooter={this.renderLoadEarlier}
           renderScrollComponent={this.renderScrollComponent}
+
+          ref={(component) => this.listView = component}
+          onScroll={(e) => this.onScroll(e)}
+          onWheel={(e) => this.onWheel(e)}
         />
       </View>
     );
@@ -164,8 +197,8 @@ MessageContainer.defaultProps = {
   renderFooter: null,
   renderMessage: null,
   listViewProps: {},
-  onLoadEarlier: () => {
-  },
+  onLoadEarlier: () => {},
+  maxChatWidth: 420,
 };
 
 MessageContainer.propTypes = {
@@ -175,4 +208,5 @@ MessageContainer.propTypes = {
   renderMessage: React.PropTypes.func,
   onLoadEarlier: React.PropTypes.func,
   listViewProps: React.PropTypes.object,
+  maxChatWidth: React.PropTypes.number,
 };
