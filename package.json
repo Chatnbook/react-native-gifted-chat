@@ -41,7 +41,7 @@
     "moment": "2.17.1",
     "react-native-communications": "2.1.1",
     "react-native-invertible-scroll-view": "1.0.0",
-    "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox.git",
+    "react-native-lightbox": "git+https://github.com/rigoiot/react-native-lightbox.git",
     "react-native-parsed-text": "0.0.16",
     "shallowequal": "0.2.2",
     "uuid": "3.0.1"
