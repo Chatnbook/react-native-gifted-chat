@@ -215,7 +215,12 @@ class GiftedChat extends React.Component {
     //}
     const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
     return (
-      <AnimatedView style={[styles.animated, { visibility: this.state.chatVisible ? 'visible' : 'hidden' }]}>
+      <AnimatedView style={[styles.animated,
+          {
+            visibility: this.state.chatVisible ? 'visible' : 'hidden',
+            maxHeight: this.state.chatVisible ? 'calc(100vh - 150px)' : 0,
+          }
+        ]}>
         <MessageContainer
           {...this.props}
 
@@ -379,7 +384,6 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    maxHeight: 'calc(100vh - 150px)',
     overflow: 'hidden',
   },
   hideButton: {
