@@ -198,10 +198,10 @@ class GiftedChat extends React.Component {
     }
     return (
       <TouchableOpacity
-        style={styles.hideButton}
+        style={[styles.hideButton, this.props.hideButtonStyle]}
         onPress={() => this.props.onHideButtonPress()}
       >
-        <Text style={[styles.hideText, this.props.hideButtonStyle]}>
+        <Text style={[styles.hideText, this.props.hideTextStyle]}>
           {this.props.hideButtonTitle}
         </Text>
         <Image style={styles.hideImage} source={this.props.hideButtonImage} />
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   hideButton: {
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.75)',
     alignSelf: 'flex-end',
     height: 30,
     marginBottom: 5,
@@ -487,6 +487,7 @@ GiftedChat.propTypes = {
   hideButtonTitle: React.PropTypes.string,
   hideButtonImage: React.PropTypes.any,
   hideButtonStyle: StylePropType,
+  hideTextStyle: StylePropType,
   onHideButtonPress: React.PropTypes.func,
   maxChatWidth: React.PropTypes.number,
 };
