@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
     alignSelf: 'flex-end',
     width: '100%',
+    maxHeight: 'calc(100% - 6px)', // fix for IE
     marginBottom: 5,
     borderRadius: 20,
     borderTopLeftRadius: 0,
