@@ -192,23 +192,6 @@ class GiftedChat extends React.Component {
     });
   }
 
-  renderHideButton() {
-    if (!this.state.chatVisible) {
-      return null;
-    }
-    return (
-      <TouchableOpacity
-        style={[styles.hideButton, this.props.hideButtonStyle]}
-        onPress={() => this.props.onHideButtonPress()}
-      >
-        <Text style={[styles.hideText, this.props.hideTextStyle]}>
-          {this.props.hideButtonTitle}
-        </Text>
-        <Image style={styles.hideImage} source={this.props.hideButtonImage} />
-      </TouchableOpacity>
-    );
-  }
-
   renderMessages() {
     //if (!this.state.chatVisible) {
     //  return null;
@@ -359,7 +342,6 @@ class GiftedChat extends React.Component {
     if (this.state.isInitialized === true) {
       return (
         <View style={styles.container} onLayout={this.onMainViewLayout}>
-          {this.renderHideButton()}
           {this.renderMessages()}
           {this.renderInputToolbar()}
         </View>
@@ -385,29 +367,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     overflow: 'hidden',
-  },
-  hideButton: {
-    backgroundColor: 'rgba(0,0,0,0.75)',
-    alignSelf: 'flex-end',
-    height: 30,
-    marginBottom: 5,
-    borderRadius: 16,
-    color: '#fff',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  hideText: {
-    fontSize: 13,
-    margin: 'auto',
-    marginLeft: 10,
-  },
-  hideImage: {
-    margin: 10,
-    marginTop: 11,
-    width: 15,
-    height: 10,
-    resizeMode: 'contain',
   },
 });
 
@@ -447,9 +406,6 @@ GiftedChat.defaultProps = {
   isLoadingEarlier: false,
   messageIdGenerator: () => uuid.v4(),
   chatVisible: false,
-  hideButtonTitle: 'Hide chat',
-  hideButtonImage: null,
-  onHideButtonPress: () => {},
   maxChatWidth: 420,
 };
 
@@ -484,11 +440,6 @@ GiftedChat.propTypes = {
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
-  hideButtonTitle: React.PropTypes.string,
-  hideButtonImage: React.PropTypes.any,
-  hideButtonStyle: StylePropType,
-  hideTextStyle: StylePropType,
-  onHideButtonPress: React.PropTypes.func,
   maxChatWidth: React.PropTypes.number,
 };
 
