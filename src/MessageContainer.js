@@ -146,8 +146,8 @@ export default class MessageContainer extends React.Component {
   }
 
   onWheel(e) { // invert scroller
-    this.listView.getScrollResponder().scrollTo({ x: 0, y: this.offset.y - e.nativeEvent.deltaY });
     e.preventDefault();
+    this.listView.getScrollResponder().scrollTo({ x: 0, y: this.offset.y - e.deltaY });
   }
 
   renderScrollComponent(props) {
