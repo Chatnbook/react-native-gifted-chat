@@ -197,14 +197,23 @@ class GiftedChat extends React.Component {
     //if (!this.state.chatVisible) {
     //  return null;
     //}
-    const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
+    const AnimatedView = this.props.isAnimated ? Animated.View : View;
+    const animatedStyle = this.props.fullScreen
+        ? [
+            styles.container,
+            {
+                visibility: this.state.chatVisible ? 'visible' : 'hidden',
+            }
+        ]
+        : [
+            styles.animated,
+            {
+                visibility: this.state.chatVisible ? 'visible' : 'hidden',
+                maxHeight: this.state.chatVisible ? 'calc(100vh - 150px)' : 0,
+            }
+        ];
     return (
-      <AnimatedView style={[styles.animated,
-          {
-            visibility: this.state.chatVisible ? 'visible' : 'hidden',
-            maxHeight: this.state.chatVisible ? 'calc(100vh - 150px)' : 0,
-          }
-        ]}>
+      <AnimatedView style={animatedStyle}>
         <MessageContainer
           {...this.props}
 
@@ -408,6 +417,7 @@ GiftedChat.defaultProps = {
   messageIdGenerator: () => uuid.v4(),
   chatVisible: false,
   maxChatWidth: 420,
+  fullScreen: false,
 };
 
 GiftedChat.propTypes = {
@@ -442,6 +452,7 @@ GiftedChat.propTypes = {
   messageIdGenerator: React.PropTypes.func,
   chatVisible: React.PropTypes.bool,
   maxChatWidth: React.PropTypes.number,
+  fullScreen: React.PropTypes.bool,
 };
 
 export {

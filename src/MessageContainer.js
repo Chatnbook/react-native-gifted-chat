@@ -15,7 +15,6 @@ import Message from './Message';
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))',
     alignSelf: 'flex-end',
     width: '100%',
     maxHeight: 'calc(100% - 6px)', // fix for IE
@@ -161,14 +160,20 @@ export default class MessageContainer extends React.Component {
   }
 
   render() {
+      const backgroundStyle = this.props.fullScreen
+        ? null
+        : { background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))' };
     return (
       <View ref='container'
-        style={[styles.containerView,
-          {
-            padding: this.messagesCount > 0 ? 5 : 0,
-            paddingTop: this.messagesCount > 0 ? 10 : 0,
-            maxWidth: this.props.maxChatWidth,
-          }]}
+        style={[
+            styles.containerView,
+            {
+                padding: this.messagesCount > 0 ? 5 : 0,
+                paddingTop: this.messagesCount > 0 ? 10 : 0,
+                maxWidth: this.props.maxChatWidth,
+            },
+            backgroundStyle,
+        ]}
       >
         <ListView
           enableEmptySections
@@ -201,6 +206,7 @@ MessageContainer.defaultProps = {
   listViewProps: {},
   onLoadEarlier: () => {},
   maxChatWidth: 420,
+  fullScreen: false,
 };
 
 MessageContainer.propTypes = {
@@ -211,4 +217,5 @@ MessageContainer.propTypes = {
   onLoadEarlier: React.PropTypes.func,
   listViewProps: React.PropTypes.object,
   maxChatWidth: React.PropTypes.number,
+  fullScreen: React.PropTypes.bool,
 };
