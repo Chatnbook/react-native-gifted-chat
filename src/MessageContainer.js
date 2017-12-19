@@ -21,6 +21,7 @@ export default class MessageContainer extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.renderLoadEarlier = this.renderLoadEarlier.bind(this);
     this.renderScrollComponent = this.renderScrollComponent.bind(this);
+    this.offset = { x: 0, y: 0 };
 
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => {
@@ -32,6 +33,15 @@ export default class MessageContainer extends React.Component {
     this.state = {
       dataSource: dataSource.cloneWithRows(messagesData.blob, messagesData.keys)
     };
+  }
+
+  onScroll(e) {
+    this.offset = e.nativeEvent.contentOffset;
+  }
+
+  onWheel(e) { // invert scroller
+    e.preventDefault();
+    this.listView.getScrollResponder().scrollTo({ x: 0, y: this.offset.y - e.deltaY });
   }
 
   prepareMessages(messages) {
@@ -99,7 +109,7 @@ export default class MessageContainer extends React.Component {
   }
 
   scrollTo(options) {
-    this._invertibleScrollViewRef.scrollTo(options);
+    this.listView.getScrollResponder().scrollTo(options);
   }
 
   renderRow(message, sectionId, rowId) {
@@ -159,6 +169,10 @@ export default class MessageContainer extends React.Component {
           renderHeader={this.renderFooter}
           renderFooter={this.renderLoadEarlier}
           renderScrollComponent={this.renderScrollComponent}
+
+          ref={(component) => this.listView = component}
+          onScroll={(e) => this.onScroll(e)}
+          onWheel={(e) => this.onWheel(e)}
         />
       </View>
     );

@@ -16,11 +16,6 @@ import Time from './Time';
 import { isSameUser, isSameDay, warnDeprecated } from './utils';
 
 export default class Bubble extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onLongPress = this.onLongPress.bind(this);
-  }
-
   handleBubbleToNext() {
     if (isSameUser(this.props.currentMessage, this.props.nextMessage) && isSameDay(this.props.currentMessage, this.props.nextMessage)) {
       return StyleSheet.flatten([styles[this.props.position].containerToNext, this.props.containerToNextStyle[this.props.position]]);
