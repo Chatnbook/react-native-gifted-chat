@@ -161,7 +161,7 @@ export default class MessageContainer extends React.Component {
 
   render() {
       const backgroundStyle = this.props.fullScreen
-        ? null
+        ? { maxHeight: '100%' }
         : { background: 'linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0.1))' };
     return (
       <View ref='container'
@@ -209,7 +209,7 @@ MessageContainer.defaultProps = {
   fullScreen: false,
 };
 
-MessageContainer.propTypes = {
+/* MessageContainer.propTypes = {
   messages: React.PropTypes.array,
   user: React.PropTypes.object,
   renderFooter: React.PropTypes.func,
@@ -218,4 +218,4 @@ MessageContainer.propTypes = {
   listViewProps: React.PropTypes.object,
   maxChatWidth: React.PropTypes.number,
   fullScreen: React.PropTypes.bool,
-};
+}; */
