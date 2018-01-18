@@ -39,6 +39,7 @@ class GiftedChat extends React.Component {
 
     // default values
     this._isMounted = false;
+    this._keyboardHeight = 0;
     this._bottomOffset = 0;
     this._maxHeight = null;
     this._isFirstLayout = true;
@@ -154,14 +155,7 @@ class GiftedChat extends React.Component {
   }
 
   getKeyboardHeight() {
-    if (Platform.OS === 'android' && !this.props.forceGetKeyboardHeight) {
-      // For android: on-screen keyboard resized main container and has own height.
-      // @see https://developer.android.com/training/keyboard-input/visibility.html
-      // So for calculate the messages container height ignore keyboard height.
-      return 0;
-    } else {
-      return this._keyboardHeight;
-    }
+    return 0;
   }
 
   setBottomOffset(value) {
@@ -227,54 +221,6 @@ class GiftedChat extends React.Component {
       return new Animated.Value(value);
     }
     return value;
-  }
-
-  onKeyboardWillShow(e) {
-    this.setIsTypingDisabled(true);
-    this.setKeyboardHeight(e.endCoordinates ? e.endCoordinates.height : e.end.height);
-    this.setBottomOffset(this.props.bottomOffset);
-    const newMessagesContainerHeight = this.getMessagesContainerHeightWithKeyboard();
-    if (this.props.isAnimated === true) {
-      Animated.timing(this.state.messagesContainerHeight, {
-        toValue: newMessagesContainerHeight,
-        duration: 210,
-      }).start();
-    } else {
-      this.setState({
-        messagesContainerHeight: newMessagesContainerHeight,
-      });
-    }
-  }
-
-  onKeyboardWillHide() {
-    this.setIsTypingDisabled(true);
-    this.setKeyboardHeight(0);
-    this.setBottomOffset(0);
-    const newMessagesContainerHeight = this.getBasicMessagesContainerHeight();
-    if (this.props.isAnimated === true) {
-      Animated.timing(this.state.messagesContainerHeight, {
-        toValue: newMessagesContainerHeight,
-        duration: 210,
-      }).start();
-    } else {
-      this.setState({
-        messagesContainerHeight: newMessagesContainerHeight,
-      });
-    }
-  }
-
-  onKeyboardDidShow(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillShow(e);
-    }
-    this.setIsTypingDisabled(false);
-  }
-
-  onKeyboardDidHide(e) {
-    if (Platform.OS === 'android') {
-      this.onKeyboardWillHide(e);
-    }
-    this.setIsTypingDisabled(false);
   }
 
   scrollToBottom(animated = true) {
@@ -531,13 +477,8 @@ GiftedChat.defaultProps = {
   bottomOffset: 0,
   minInputToolbarHeight: 44,
   listViewProps: {},
-  keyboardShouldPersistTaps: Platform.select({
-    ios: 'never',
-    android: 'always',
-  }),
   onInputTextChanged: null,
   maxInputLength: null,
-  forceGetKeyboardHeight: false,
 };
 
 GiftedChat.propTypes = {
@@ -582,10 +523,8 @@ GiftedChat.propTypes = {
   bottomOffset: PropTypes.number,
   minInputToolbarHeight: PropTypes.number,
   listViewProps: PropTypes.object,
-  keyboardShouldPersistTaps: PropTypes.oneOf(['always', 'never', 'handled']),
   onInputTextChanged: PropTypes.func,
   maxInputLength: PropTypes.number,
-  forceGetKeyboardHeight: PropTypes.bool,
 };
 
 export {
